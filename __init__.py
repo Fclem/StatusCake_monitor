@@ -15,14 +15,24 @@ class StatusCakeInterface(ServiceInterfaceAbstract):
 	def __init__(self, inst_conf=MyConfig()):
 		super(StatusCakeInterface, self).__init__(inst_conf)
 	
+	# clem 14/11/2011
+	@staticmethod
+	def _make_dict(data, prop_sep='&', kv_sep='='):
+		a_dict = dict()
+		for each in data.split(prop_sep):
+			key, value = each.split(kv_sep, 1)
+			a_dict.update({key: value})
+		return a_dict
+	
 	def _send(self, check_instance):
 		""" send a poll to the StatusCake TestID """
 		assert isinstance(check_instance, CheckObject)
-		return self._sender(self._host_url, self._gen_url(check_instance), 'GET')
+		data = self._make_dict(self._conf.api_data % (check_instance.check_api_key, check_instance.id))
+		return self._sender(self._host_url, self._gen_url(), HTTPMethods.GET, data)
 	
 	# clem 10/11/2016
-	def _gen_url(self, check_instance):
-		return self._base_end_point_url % (check_instance.check_api_key, check_instance.id)
+	def _gen_url(self):
+		return self._base_end_point_url
 
 	def update_check(self, check_instance):
 		""" Polls the check, to validate that it is online
