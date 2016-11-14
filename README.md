@@ -1,7 +1,7 @@
 # StatusCake_monitor
-a generic services monitoring system that updates StatusCake.com
-StatusCake PUSH test manually "forked" from [my own GitHub "infra_monitor" repository](https://github.com/Fclem/infra_monitor)
-This is basically the same as infra_monitor, except that it uses  StatusCake.com instead of StatusPage.io and it uses a PUSH scheme to update test (as a heartbeat) instead of updating check on a status change basis.
+a services monitoring system that updates "Push" Tests on StatusCake.com
+StatusCake PUSH depends on [my own GitHub "infra_monitor" repository](https://github.com/Fclem/infra_monitor)
+This uses  StatusCake.com along with a PUSH scheme to update test instead of updating check on a status change basis.
 
 ## How to start :
 bash :
@@ -18,14 +18,9 @@ vim config.ini
 ./__init__.py
 ```
 
-***Old documentation bellow***
+***documentation from top-level repository***
 
-Checks are loaded from `config.ini`, and once `api_key`, `page_id` and
-`api_base` are filled in this configuration file, you can generate a
-list of checks using
-```python
-StatusPageIoInterface().write_config()
-```
+Checks are loaded from `config.ini`
 
 ## Currently supported checks types :
  * `url` : if HTTP GET to *url* returns HTTP 200
