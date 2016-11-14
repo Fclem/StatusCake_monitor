@@ -15,13 +15,14 @@ class StatusCakeInterface(ServiceInterfaceAbstract):
 	def __init__(self, inst_conf=MyConfig()):
 		super(StatusCakeInterface, self).__init__(inst_conf)
 	
-	def _send(self, test_id):
+	def _send(self, check_instance):
 		""" send a poll to the StatusCake TestID """
-		return self._sender(self._host_url, self._gen_url(test_id), 'GET')
+		assert isinstance(check_instance, CheckObject)
+		return self._sender(self._host_url, self._gen_url(check_instance), 'GET')
 	
 	# clem 10/11/2016
-	def _gen_url(self, test_id):
-		return self._base_end_point_url % test_id
+	def _gen_url(self, check_instance):
+		return self._base_end_point_url % (check_instance.check_api_key, check_instance.id)
 
 	def update_check(self, check_instance):
 		""" Polls the check, to validate that it is online
@@ -29,8 +30,8 @@ class StatusCakeInterface(ServiceInterfaceAbstract):
 		:type check_instance: CheckObject
 		:rtype:
 		"""
-		assert isinstance(check_instance, CheckObject)
-		response = self._send(check_instance.id)
+		# assert isinstance(check_instance, CheckObject)
+		response = self._send(check_instance)
 		return response.status == 200
 	
 	# clem 10/11/2016
@@ -40,9 +41,7 @@ class StatusCakeInterface(ServiceInterfaceAbstract):
 		:type check_instance: CheckObject
 		:type value: bool
 		"""
-		if value:
-			return self.update_check(check_instance)
-		return False
+		return self.update_check(check_instance) if value else False
 	
 	def no_status_change(self, check_instance, old_status, new_status):
 		return self.set_check(check_instance, new_status)
