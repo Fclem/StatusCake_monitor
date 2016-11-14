@@ -4,18 +4,9 @@ StatusCake PUSH depends on [my own GitHub "infra_monitor" repository](https://gi
 This uses  StatusCake.com along with a PUSH scheme to update test instead of updating check on a status change basis.
 
 ## How to start :
-bash :
 ```bash
-git clone https://github.com/Fclem/StatusCake_monitor.git && cd StatusCake_monitor && git clone https://github.com/Fclem/infra_monitor.git
-vim config.ini
-./__init__.py
-```
-
-fish :
-```shell
-git clone https://github.com/Fclem/StatusCake_monitor.git; and cd StatusCake_monitor; and git clone https://github.com/Fclem/infra_monitor.git
-vim config.ini
-./__init__.py
+git clone https://github.com/Fclem/StatusCake_monitor.git
+./init.sh
 ```
 
 ***documentation from top-level repository***

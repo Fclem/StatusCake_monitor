@@ -89,3 +89,4 @@ ENV/
 .ropeproject
 .*/
 infra_monitor
+config.ini
